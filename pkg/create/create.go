@@ -35,7 +35,7 @@ func (app *App) Entry() error {
 	}
 
 	if app.config.NamespaceLabels != "" {
-		log.Infoln("Namespace labels : %s.", app.config.NamespaceLabels)
+		log.Infof("Namespace labels : %s.", app.config.NamespaceLabels)
 		comma := strings.Split(app.config.NamespaceLabels, ",")
 		temp := strings.Split(app.config.NamespaceLabels, "=")
 		if (len(temp) - len(comma)) != 1 {

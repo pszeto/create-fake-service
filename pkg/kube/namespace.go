@@ -32,7 +32,7 @@ func EnsureNamespaceExists(clientset *kubernetes.Clientset, namespace string, ns
 			},
 		}
 		if err != nil {
-			log.Infof("Creating %s namespace.", ns)
+			log.Infof("Creating %s namespace.", namespace)
 			_, err := clientset.CoreV1().Namespaces().Create(context.Background(), ns, metav1.CreateOptions{})
 			if err != nil {
 				log.Errorf("Failed to create %s namespace.", namespace)
