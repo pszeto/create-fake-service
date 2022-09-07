@@ -14,7 +14,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 )
 
-func CreateUpdateDeployment(clientset *kubernetes.Clientset, ns string, deploymentName string, ports []int32, protocol string, upstreamServiceAddress string, includeHey bool, dryRun bool, saveYaml bool) error {
+func CreateUpdateDeployment(clientset *kubernetes.Clientset, ns string, deploymentName string, numOfReplicas int32, ports []int32, protocol string, upstreamServiceAddress string, includeHey bool, dryRun bool, saveYaml bool) error {
 	var serviceAccountName = deploymentName + "-serviceaccount"
 	containers := []corev1.Container{}
 	containersInfo := []ContainerInfo{}
@@ -110,6 +110,7 @@ func CreateUpdateDeployment(clientset *kubernetes.Clientset, ns string, deployme
 	}
 
 	deploymentSpec := appsv1.DeploymentSpec{
+		Replicas: &numOfReplicas,
 		Selector: &metav1.LabelSelector{
 			MatchLabels: map[string]string{
 				"app": deploymentName,
@@ -150,6 +151,7 @@ func CreateUpdateDeployment(clientset *kubernetes.Clientset, ns string, deployme
 			},
 		},
 		Spec: DeploymentSpec{
+			Replicas: numOfReplicas,
 			Selector: MatchLabelSelector{
 				MatchLabels: map[string]string{
 					"app": deploymentName,

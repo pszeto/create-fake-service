@@ -29,6 +29,7 @@ type Deployment struct {
 }
 
 type DeploymentSpec struct {
+	Replicas int32              `yaml:"replicas"`
 	Selector MatchLabelSelector `yaml:"selector"`
 	Template DeploymentTemplate `yaml:"template"`
 }

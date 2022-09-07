@@ -56,6 +56,11 @@ func (app *App) Entry() error {
 		app.config.Protocol = "http"
 	}
 
+	if app.config.DeploymentReplicas != 1 {
+		log.Infoln("Deployment Replicas:", app.config.DeploymentReplicas)
+		app.config.Protocol = "http"
+	}
+
 	if !app.config.IncludeHey {
 		log.Infoln("include-hey not specified. Defaulting to false.")
 	}
@@ -85,7 +90,7 @@ func (app *App) Entry() error {
 		return err
 	}
 
-	err = kube.CreateUpdateDeployment(clientset, app.config.Namespace, app.config.Deployment, portsAsInt, app.config.Protocol, app.config.UpstreamUris, app.config.IncludeHey, app.config.DryRun, app.config.SaveYaml)
+	err = kube.CreateUpdateDeployment(clientset, app.config.Namespace, app.config.Deployment, app.config.DeploymentReplicas, portsAsInt, app.config.Protocol, app.config.UpstreamUris, app.config.IncludeHey, app.config.DryRun, app.config.SaveYaml)
 	if err != nil {
 		log.Fatalln(err)
 		return err
