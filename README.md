@@ -11,6 +11,7 @@
         --include-hey                 Specify whether to include hey container in deployment. Default to false
         --kube-context string         Specify which kube context to use.
         --namespace string            Specify namespace. default namespace is used if not set
+        --namespace-labels string     Specify the labels for the namespaces, defaults to none. Comma seperated.  Example: istio-injection=enabled,istio.io/rev=1-12        
         --ports string                Specify ports to expose for the service/deployment. Defaults to 8080
         --protocol string             Specify protocol for for the service/deployment. Defaults to http
         --save-yaml                   Specify if it should save the yamls to file. Default false

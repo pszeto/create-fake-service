@@ -6,6 +6,7 @@ type App struct {
 
 type Config struct {
 	Namespace          string
+	NamespaceLabels    string
 	Deployment         string
 	DeploymentReplicas int32
 	Kubectx            string

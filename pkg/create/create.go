@@ -34,6 +34,16 @@ func (app *App) Entry() error {
 		app.config.Namespace = "default"
 	}
 
+	if app.config.NamespaceLabels != "" {
+		log.Infoln("Namespace labels : %s.", app.config.NamespaceLabels)
+		comma := strings.Split(app.config.NamespaceLabels, ",")
+		temp := strings.Split(app.config.NamespaceLabels, "=")
+		if (len(temp) - len(comma)) != 1 {
+			log.Fatalln("Invalid Namespace label format.")
+			return err
+		}
+	}
+
 	if app.config.Ports == "" {
 		log.Infoln("Ports not specified. Using default port 8080.")
 		portsAsInt = append(portsAsInt, 8080)
@@ -79,7 +89,7 @@ func (app *App) Entry() error {
 		app.config.Deployment = "temporary"
 	}
 
-	err = kube.EnsureNamespaceExists(clientset, app.config.Namespace, app.config.DryRun)
+	err = kube.EnsureNamespaceExists(clientset, app.config.Namespace, app.config.NamespaceLabels, app.config.DryRun)
 	if err != nil {
 		log.Fatalln(err)
 		return err

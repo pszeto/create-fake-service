@@ -28,6 +28,7 @@ func Execute() {
 
 func init() {
 	rootCmd.Flags().StringVar(&cfg.Namespace, "namespace", "", "Specify namespace. default namespace is used if not set")
+	rootCmd.Flags().StringVar(&cfg.NamespaceLabels, "namespace-labels", "", "Specify the labels for the namespaces, defaults to none. Comma seperated.  Example: istio-injection=enabled,istio.io/rev=1-12")
 	rootCmd.Flags().StringVar(&cfg.Deployment, "deployment", "", "Specify name of deployment. Defaults to temporary")
 	rootCmd.Flags().StringVar(&cfg.Ports, "ports", "", "Specify ports to expose for the service/deployment. Defaults to 8080")
 	rootCmd.Flags().StringVar(&cfg.Protocol, "protocol", "", "Specify protocol for for the service/deployment. Defaults to http")
